@@ -17,6 +17,8 @@
   },
   "projects": {
     "customer": { "tags": [] },
-    "customer-functional": { "tags": [], "implicitDependencies": ["customer"] }
+    "customer-functional": { "tags": [], "implicitDependencies": ["customer"] },
+    "backoffice": { "tags": [] },
+    "backoffice-functional": { "tags": [], "implicitDependencies": ["backoffice"] }
   }
 }
