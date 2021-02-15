@@ -30,36 +30,36 @@
       "style": "css"
     }
   },
-  "defaultProject": "oregano",
+  "defaultProject": "customer",
   "projects": {
-    "oregano": {
+    "customer": {
       "projectType": "application",
-      "root": "apps/oregano",
-      "sourceRoot": "apps/oregano/src",
+      "root": "apps/customer",
+      "sourceRoot": "apps/customer/src",
       "prefix": "cat",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/apps/oregano",
-            "index": "apps/oregano/src/index.html",
-            "main": "apps/oregano/src/main.ts",
-            "polyfills": "apps/oregano/src/polyfills.ts",
-            "tsConfig": "apps/oregano/tsconfig.app.json",
+            "outputPath": "dist/apps/customer",
+            "index": "apps/customer/src/index.html",
+            "main": "apps/customer/src/main.ts",
+            "polyfills": "apps/customer/src/polyfills.ts",
+            "tsConfig": "apps/customer/tsconfig.app.json",
             "aot": true,
             "assets": [
-              "apps/oregano/src/favicon.ico",
-              "apps/oregano/src/assets"
+              "apps/customer/src/favicon.ico",
+              "apps/customer/src/assets"
             ],
-            "styles": ["apps/oregano/src/styles.css"],
+            "styles": ["apps/customer/src/styles.css"],
             "scripts": []
           },
           "configurations": {
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "apps/oregano/src/environments/environment.ts",
-                  "with": "apps/oregano/src/environments/environment.prod.ts"
+                  "replace": "apps/customer/src/environments/environment.ts",
+                  "with": "apps/customer/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -87,61 +87,61 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "oregano:build"
+            "browserTarget": "customer:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "oregano:build:production"
+              "browserTarget": "customer:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "oregano:build"
+            "browserTarget": "customer:build"
           }
         },
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
-              "apps/oregano/src/**/*.ts",
-              "apps/oregano/src/**/*.html"
+              "apps/customer/src/**/*.ts",
+              "apps/customer/src/**/*.html"
             ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/oregano"],
+          "outputs": ["coverage/apps/customer"],
           "options": {
-            "jestConfig": "apps/oregano/jest.config.js",
+            "jestConfig": "apps/customer/jest.config.js",
             "passWithNoTests": true
           }
         }
       }
     },
-    "oregano-e2e": {
-      "root": "apps/oregano-e2e",
-      "sourceRoot": "apps/oregano-e2e/src",
+    "customer-functional": {
+      "root": "apps/customer-functional",
+      "sourceRoot": "apps/customer-functional/src",
       "projectType": "application",
       "architect": {
         "e2e": {
           "builder": "@nrwl/cypress:cypress",
           "options": {
-            "cypressConfig": "apps/oregano-e2e/cypress.json",
-            "tsConfig": "apps/oregano-e2e/tsconfig.e2e.json",
-            "devServerTarget": "oregano:serve"
+            "cypressConfig": "apps/customer-functional/cypress.json",
+            "tsConfig": "apps/customer-functional/tsconfig.e2e.json",
+            "devServerTarget": "customer:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "oregano:serve:production"
+              "devServerTarget": "customer:serve:production"
             }
           }
         },
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/oregano-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": ["apps/customer-functional/**/*.{js,ts}"]
           }
         }
       }

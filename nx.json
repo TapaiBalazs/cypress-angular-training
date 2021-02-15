@@ -16,7 +16,7 @@
     }
   },
   "projects": {
-    "oregano": { "tags": [] },
-    "oregano-e2e": { "tags": [], "implicitDependencies": ["oregano"] }
+    "customer": { "tags": [] },
+    "customer-functional": { "tags": [], "implicitDependencies": ["customer"] }
   }
 }
