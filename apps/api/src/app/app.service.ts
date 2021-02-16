@@ -1,6 +1,6 @@
+import { Pizza } from '@cat/api-interfaces';
 import { Injectable } from '@nestjs/common';
 import { PizzaDto } from './data-transfer-objects/pizza.dto';
-import { Pizza } from './interfaces/pizza.interfaces';
 
 const PIZZAS = [
   {
@@ -37,8 +37,8 @@ const PIZZAS = [
     price: 1400,
     imageUrl: 'todo',
     description: 'Tomato sauce, ham, italian spicy salami, green peppers, jalapeno, mozzarella'
-  },
-]
+  }
+];
 
 @Injectable()
 export class AppService {
@@ -55,17 +55,17 @@ export class AppService {
     const newPizza = {
       id,
       ...pizza
-    }
+    };
     PIZZAS.push(newPizza);
     return id;
   }
 
   async updatePizza(pizza: PizzaDto): Promise<number> {
     const existing = await this.getPizza(pizza.id);
-    existing.name = pizza.name
-    existing.price = pizza.price
-    existing.description = pizza.description
-    existing.imageUrl = pizza.imageUrl
+    existing.name = pizza.name;
+    existing.price = pizza.price;
+    existing.description = pizza.description;
+    existing.imageUrl = pizza.imageUrl;
     return existing.id;
   }
 }

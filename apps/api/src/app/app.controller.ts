@@ -1,8 +1,10 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Post, Put, Query, ValidationPipe } from '@nestjs/common';
+import { Pizza } from '@cat/api-interfaces';
+import { Body, Controller, Get, Param, ParseIntPipe, Post, Put, ValidationPipe } from '@nestjs/common';
+import * as fs from 'fs';
+import * as path from 'path';
 
 import { AppService } from './app.service';
 import { PizzaDto } from './data-transfer-objects/pizza.dto';
-import { Pizza } from './interfaces/pizza.interfaces';
 
 /**
  Since this is only a mock back-end, I'm inclined to do everything in one controller.

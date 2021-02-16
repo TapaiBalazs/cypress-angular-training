@@ -1,0 +1,8 @@
+<div>
+  <img [src]='pizza?.imageUrl' alt='' />
+</div>
+
+<div>
+  <h3>{{ pizza?.name}} <span> {{ pizza?.price | formatMoney }}</span></h3>
+  <p> {{ pizza?.description }}</p>
+</div>

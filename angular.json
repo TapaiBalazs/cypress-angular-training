@@ -52,7 +52,7 @@
               "apps/customer/src/favicon.ico",
               "apps/customer/src/assets"
             ],
-            "styles": ["./node_modules/@angular/material/prebuilt-themes/indigo-pink.css", "apps/customer/src/styles.css"],
+            "styles": ["apps/customer/src/styles.css"],
             "scripts": []
           },
           "configurations": {
@@ -167,7 +167,10 @@
               "apps/backoffice/src/favicon.ico",
               "apps/backoffice/src/assets"
             ],
-            "styles": ["./node_modules/@angular/material/prebuilt-themes/indigo-pink.css", "apps/backoffice/src/styles.css"],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "apps/backoffice/src/styles.css"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -310,6 +313,31 @@
           "outputs": ["coverage/apps/api"],
           "options": {
             "jestConfig": "apps/api/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "api-interfaces": {
+      "projectType": "library",
+      "root": "libs/api-interfaces",
+      "sourceRoot": "libs/api-interfaces/src",
+      "prefix": "cat",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/api-interfaces/src/**/*.ts",
+              "libs/api-interfaces/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/api-interfaces"],
+          "options": {
+            "jestConfig": "libs/api-interfaces/jest.config.js",
             "passWithNoTests": true
           }
         }

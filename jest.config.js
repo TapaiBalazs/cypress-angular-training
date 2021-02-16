@@ -3,5 +3,6 @@ module.exports = {
     '<rootDir>/apps/customer',
     '<rootDir>/apps/backoffice',
     '<rootDir>/apps/api',
+    '<rootDir>/libs/api-interfaces',
   ],
 };
