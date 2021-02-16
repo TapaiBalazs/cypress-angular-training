@@ -1,6 +1,64 @@
-
-
 # Cat
+
+This project is a prerequisite for a Cypress Angular Training. In this readme file, you are going to find instructions how to start the applications and the tests.
+
+## Dummy API
+
+In order to properly work with the Front-Ends, we developed a very simple, in-memory storage based back-end service.
+
+If you would like to run the service in dev mode, run the following:
+
+```
+npm run start:api
+```
+
+This will serve the API at `localhost:3333`. You can check the Swagger documentation at `localhost:3333/swagger/#/`
+
+## Customer front-end
+
+The customer front-end facing front-end communicates with the dummy API. Please make sure that you start the API first.
+
+You can start the app in dev mode, by the following command:
+
+```
+npm run start:customer
+```
+
+This is going to start the front-end application at `localhost:4200`
+
+## Backoffice front-end
+
+The backoffice front-end facing front-end communicates with the dummy API. Please make sure that you start the API first.
+
+You can start the app in dev mode, by the following command:
+
+```
+npm run start:backoffice
+```
+
+This is going to start the front-end application at `localhost:4300`
+
+
+---
+
+## Running functional tests
+
+During the training session, running the cypress _functional_ tests in the Cypress test runner can be done with the following commands:
+
+```
+npm run functional:customer:debug
+npm run functional:backoffice:debug
+```
+
+You can run the same tests in `headless` mode with the following commands:
+
+```
+npm run functional:customer
+npm run functional:backoffice
+```
+
+--- 
+
 
 This project was generated using [Nx](https://nx.dev).
 
