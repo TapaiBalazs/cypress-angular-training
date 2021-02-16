@@ -51,6 +51,8 @@
     "@nestjs/platform-express": "^7.0.0",
     "@nestjs/swagger": "^4.7.13",
     "@nrwl/angular": "11.2.12",
+    "class-transformer": "^0.4.0",
+    "class-validator": "^0.13.1",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~6.6.3",
     "swagger-ui-express": "^4.1.6",
