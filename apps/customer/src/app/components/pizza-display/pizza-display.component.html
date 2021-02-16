@@ -1,8 +1,11 @@
-<div>
+<div class='pizza-image'>
   <img [src]='pizza?.imageUrl' alt='' />
 </div>
 
-<div>
-  <h3>{{ pizza?.name}} <span> {{ pizza?.price | formatMoney }}</span></h3>
+<div class='pizza-metadata'>
+  <h2 class='pizza-name'>{{ pizza?.name}} <span class='pizza-price'> {{ pizza?.price | formatMoney }}</span></h2>
   <p> {{ pizza?.description }}</p>
+  <div class='button-container'>
+    <button class='add-to-cart'>Add to cart</button>
+  </div>
 </div>

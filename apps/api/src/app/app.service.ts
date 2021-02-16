@@ -2,7 +2,7 @@ import { Pizza } from '@cat/api-interfaces';
 import { Injectable } from '@nestjs/common';
 import { PizzaDto } from './data-transfer-objects/pizza.dto';
 
-const PIZZAS = [
+const PIZZAS: Pizza[] = [
   {
     id: 1,
     name: 'Margherita',
