@@ -19,6 +19,10 @@
     "customer": { "tags": [] },
     "customer-functional": { "tags": [], "implicitDependencies": ["customer"] },
     "backoffice": { "tags": [] },
-    "backoffice-functional": { "tags": [], "implicitDependencies": ["backoffice"] }
+    "backoffice-functional": {
+      "tags": [],
+      "implicitDependencies": ["backoffice"]
+    },
+    "api": { "tags": [] }
   }
 }
