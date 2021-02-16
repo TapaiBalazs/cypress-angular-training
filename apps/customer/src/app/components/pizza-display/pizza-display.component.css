@@ -7,6 +7,9 @@
 }
 
 .pizza-metadata {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
   flex: 1 1 auto;
   padding: 0 1rem;
 }
@@ -25,6 +28,7 @@
 .button-container {
   display: flex;
   justify-content: flex-end;
+  align-self: flex-end;
 }
 
 .add-to-cart {

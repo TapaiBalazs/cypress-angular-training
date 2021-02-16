@@ -9,9 +9,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PizzaListComponent } from './components/pizza-list/pizza-list.component';
 import { PizzaDisplayComponent } from './components/pizza-display/pizza-display.component';
+import { CartButtonComponent } from './components/cart-button/cart-button.component';
 
 @NgModule({
-  declarations: [AppComponent, PizzaListComponent, PizzaDisplayComponent],
+  declarations: [AppComponent, PizzaListComponent, PizzaDisplayComponent, CartButtonComponent],
   imports: [BrowserModule, BrowserAnimationsModule, AppRoutingModule, HttpClientModule, ApiInterfacesModule],
   providers: [],
   bootstrap: [AppComponent]

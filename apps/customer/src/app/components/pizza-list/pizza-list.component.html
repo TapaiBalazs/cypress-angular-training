@@ -1,1 +1,1 @@
-<cat-pizza-display *ngFor='let pizza of pizzaList$ | async' [pizza]='pizza'></cat-pizza-display>
+<cat-pizza-display *ngFor='let pizza of pizzaList$ | async; trackBy: trackBy' [pizza]='pizza'></cat-pizza-display>
