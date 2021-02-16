@@ -7,35 +7,35 @@ const PIZZAS = [
     id: 1,
     name: 'Margherita',
     price: 1200,
-    imageUrl: 'todo',
+    imageUrl: '/api/pizza/images/1.jpg',
     description: 'Tomato sauce, mozzarella, basil'
   },
   {
     id: 2,
     name: 'Prosciutto',
     price: 1300,
-    imageUrl: 'todo',
+    imageUrl: '/api/pizza/images/2.jpg',
     description: 'Tomato sauce, ham, mozzarella, oregano'
   },
   {
     id: 3,
     name: 'Diavola',
     price: 1300,
-    imageUrl: 'todo',
+    imageUrl: '/api/pizza/images/3.jpg',
     description: 'Tomato sauce, Italian spicy salami, mozzarella'
   },
   {
     id: 4,
     name: 'Prosciutto e Mais',
     price: 1400,
-    imageUrl: 'todo',
+    imageUrl: '/api/pizza/images/4.jpg',
     description: 'Tomato sauce, ham, corn, mozzarella'
   },
   {
     id: 5,
     name: 'Piccante',
     price: 1400,
-    imageUrl: 'todo',
+    imageUrl: '/api/pizza/images/5.jpg',
     description: 'Tomato sauce, ham, italian spicy salami, green peppers, jalapeno, mozzarella'
   }
 ];
