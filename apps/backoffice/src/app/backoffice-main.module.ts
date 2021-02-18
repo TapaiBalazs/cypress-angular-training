@@ -1,16 +1,16 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { AppComponent } from './app.component';
+import { BackofficeMainComponent } from './backoffice-main.component';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [BackofficeMainComponent],
   imports: [
     BrowserModule,
     RouterModule.forRoot([], { initialNavigation: 'enabled' }),
   ],
   providers: [],
-  bootstrap: [AppComponent],
+  bootstrap: [BackofficeMainComponent],
 })
-export class AppModule {}
+export class BackofficeMainModule {}
