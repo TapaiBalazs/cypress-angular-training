@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Pizza } from '@cat/api-interfaces';
 import { of } from 'rxjs';
 import { catchError, shareReplay } from 'rxjs/operators';
 import { PizzaService } from '../../services/pizza.service';
@@ -23,8 +24,8 @@ export class PizzaListComponent {
   constructor(private pizzaService: PizzaService) {
   }
 
-  trackBy(index: number, element: any) {
-    return element?.id;
+  trackBy(index: number, item: Pizza) {
+    return item?.id;
   }
 
 
