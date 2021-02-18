@@ -1,1 +1,5 @@
-<a routerLink='/cart'> {{sum$ | async | formatMoney}}</a>
+<a routerLink='/cart'
+   data-test-id='cart-button'
+   [class.light-up]='(sum$ | async) > 0'>
+  {{sum$ | async | formatMoney}}
+</a>

@@ -1,3 +1,4 @@
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Pizza } from '@cat/api-interfaces';
 import { CartService } from '../../services/cart.service';
@@ -12,7 +13,12 @@ export class PizzaDisplayComponent {
 
   @Input() pizza: Pizza = null;
 
-  constructor(private cartService: CartService) {
+  constructor(private breakpointObserver: BreakpointObserver,
+              private cartService: CartService) {
+  }
+
+  get isDesktop(): boolean {
+    return !this.breakpointObserver.isMatched(Breakpoints.Handset)
   }
 
   addToCart(): void {

@@ -8,6 +8,9 @@
   width: 150px;
 }
 
+a.light-up {
+  opacity: 1;
+}
 a:hover {
   opacity: 1;
   color: white;

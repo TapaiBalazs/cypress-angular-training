@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { CartService } from '../../services/cart.service';
 
 @Component({
@@ -12,6 +12,7 @@ export class CartButtonComponent {
 
   sum$: Observable<number> = this.cartService.sum$;
 
-  constructor(private cartService: CartService) { }
+  constructor(private cartService: CartService) {
+  }
 
 }

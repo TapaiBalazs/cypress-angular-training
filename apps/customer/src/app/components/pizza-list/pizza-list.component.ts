@@ -1,4 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { of } from 'rxjs';
+import { catchError, shareReplay } from 'rxjs/operators';
 import { PizzaService } from '../../services/pizza.service';
 
 @Component({
@@ -9,7 +11,14 @@ import { PizzaService } from '../../services/pizza.service';
 })
 export class PizzaListComponent {
 
-  readonly pizzaList$ = this.pizzaService.getPizzaList();
+  readonly pizzaList$ = this.pizzaService.getPizzaList()
+    .pipe(
+      shareReplay(1),
+      catchError(e => {
+        console.error(e);
+        return of(null);
+      })
+    );
 
   constructor(private pizzaService: PizzaService) {
   }

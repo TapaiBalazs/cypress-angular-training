@@ -1,3 +1,4 @@
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component } from '@angular/core';
 
 @Component({
@@ -6,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  title = 'customer';
+  constructor(private breakpointObserver: BreakpointObserver) {
+  }
+
+  get isDesktop(): boolean {
+    return !this.breakpointObserver.isMatched(Breakpoints.Handset)
+  }
 }
