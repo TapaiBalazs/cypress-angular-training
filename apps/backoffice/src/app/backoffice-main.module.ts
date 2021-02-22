@@ -1,16 +1,22 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AuthenticationModule } from './authentication/authentication.module';
 import { BackofficeMainComponent } from './backoffice-main.component';
-import { RouterModule } from '@angular/router';
+import { BackofficeRoutingModule } from './backoffice-routing.module';
 
 @NgModule({
   declarations: [BackofficeMainComponent],
   imports: [
+    BrowserAnimationsModule,
+    AuthenticationModule.forRoot(),
+    HttpClientModule,
     BrowserModule,
-    RouterModule.forRoot([], { initialNavigation: 'enabled' }),
+    BackofficeRoutingModule
   ],
   providers: [],
-  bootstrap: [BackofficeMainComponent],
+  bootstrap: [BackofficeMainComponent]
 })
-export class BackofficeMainModule {}
+export class BackofficeMainModule {
+}

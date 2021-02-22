@@ -1,5 +1,6 @@
-import { Pizza } from '@cat/api-interfaces';
+import { Order, Pizza } from '@cat/api-interfaces';
 import { Injectable } from '@nestjs/common';
+import { OrderDto } from './data-transfer-objects/order.dto';
 import { PizzaDto } from './data-transfer-objects/pizza.dto';
 
 const PIZZAS: Pizza[] = [
@@ -40,6 +41,8 @@ const PIZZAS: Pizza[] = [
   }
 ];
 
+const ORDERS = [];
+
 @Injectable()
 export class AppService {
   async getPizzas(): Promise<Pizza[]> {
@@ -67,5 +70,22 @@ export class AppService {
     existing.description = pizza.description;
     existing.imageUrl = pizza.imageUrl;
     return existing.id;
+  }
+
+  async placeOrder(order: OrderDto): Promise<number> {
+    const id = Math.floor(Math.random() * 100000);
+    const newOrder = {
+      id,
+      ...order
+    };
+    ORDERS.push(newOrder);
+    return id;
+  }
+
+  async getOrders(): Promise<Order[]> {
+    return ORDERS.map((order: OrderDto) => ({
+      ...order,
+      pizzas: order.pizzas.map((id: number) => PIZZAS.find(p => p.id === id))
+    }));
   }
 }
