@@ -1,12 +1,14 @@
+import AUTWindow = Cypress.AUTWindow;
+
 describe(`Orders page`, () => {
   beforeEach(() => {
     cy.intercept('GET', 'api/orders', { fixture: 'orders.json' });
 
-    cy.window().then((window) => {
-      window.sessionStorage.setItem('AUTH_TOKEN', `${new Date().getTime()}`);
+    cy.visit('/admin/orders', {
+      onBeforeLoad: (window: AUTWindow) => {
+        window.sessionStorage.setItem('AUTH_TOKEN', `${new Date().getTime()}`);
+      }
     });
-
-    cy.visit('/admin/orders');
   });
 
   it(`displays the orders`, () => {
