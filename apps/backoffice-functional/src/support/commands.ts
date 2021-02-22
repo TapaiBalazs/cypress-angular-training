@@ -12,18 +12,31 @@
 declare namespace Cypress {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface Chainable<Subject> {
-    login(email: string, password: string): void;
+    fillCredentials(email: string, password: string): Chainable<Subject>;
+
+    login(): void
   }
 }
 //
 // -- This is a parent command --
-Cypress.Commands.add('login', (email, password) => {
-  console.log('Custom command example: Login', email, password);
+Cypress.Commands.add('fillCredentials', (email, password) => {
+  cy.get(`[data-test-id="login username"]`)
+    .should('be.visible')
+    .and('not.be.disabled')
+    .type(email);
+  cy.get(`[data-test-id="login password"]`)
+    .should('be.visible')
+    .and('not.be.disabled')
+    .type(`${password}`);
+  return cy.get(`[data-test-id="login button"]`)
+    .should('be.visible')
+    .and('not.be.disabled');
 });
-//
-// -- This is a child command --
-// Cypress.Commands.add("drag", { prevSubject: 'element'}, (subject, options) => { ... })
-//
+
+Cypress.Commands.add('login', { prevSubject: 'element' }, (subject) => {
+  subject.click();
+});
+
 //
 // -- This is a dual command --
 // Cypress.Commands.add("dismiss", { prevSubject: 'optional'}, (subject, options) => { ... })

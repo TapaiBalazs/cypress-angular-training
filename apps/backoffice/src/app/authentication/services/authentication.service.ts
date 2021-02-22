@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { catchError, map, shareReplay, tap } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { AUTH_TOKEN_KEY, LOGIN_ERROR_CODES, UNSUCCESSFUL_LOGIN } from '../constants/auth.constants';
 
 @Injectable()
@@ -10,14 +10,13 @@ export class AuthenticationService {
   constructor(private http: HttpClient, private router: Router) {
   }
 
-  login({ email, password }: { email: string; password: string }) {
+  login({ username, password }: { username: string; password: string }): Observable<boolean> {
     return this.http
-      .post<{ accessToken: string, }>('/api/login', { email, password })
+      .post<{ accessToken: string, }>('/api/login', { username, password })
       .pipe(
         catchError(this.handleLoginError.bind(this)),
-        map(this.setSessionIfSuccessfulLogin.bind(this)),
-        tap(this.navigateToDashboardIfSuccessfulLogin.bind(this)),
-        shareReplay()
+        map<{ accessToken: string }, boolean>(this.setSessionIfSuccessfulLogin.bind(this)),
+        tap(this.navigateToDashboardIfSuccessfulLogin.bind(this))
       );
   }
 
@@ -43,7 +42,8 @@ export class AuthenticationService {
     return false;
   }
 
-  private handleLoginError(error): Observable<{ accessToken: string, }> {
+  private handleLoginError(error: any,): Observable<{ accessToken: string, }> {
+    console.log(error);
     if (LOGIN_ERROR_CODES.has(error.status)) {
       return of(UNSUCCESSFUL_LOGIN);
     }

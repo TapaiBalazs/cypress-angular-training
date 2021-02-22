@@ -8,5 +8,7 @@
   "video": true,
   "videosFolder": "../../dist/cypress/apps/backoffice-functional/videos",
   "screenshotsFolder": "../../dist/cypress/apps/backoffice-functional/screenshots",
-  "chromeWebSecurity": false
+  "chromeWebSecurity": false,
+  "viewportWidth": 1920,
+  "viewportHeight": 1080
 }
