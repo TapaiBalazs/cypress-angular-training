@@ -7,9 +7,13 @@ describe(`Application layout`, () => {
     cy.intercept('GET', '/api/pizza/images/*.jpg', { fixture: 'pizza.jpg' }).as('pizzaImage');
 
     // we start the test
-    cy.visit('/pizza');
+    cy.visit('/');
     // we wait for the response to arrive before executing the tests in this test file
     cy.wait('@pizzas');
+  });
+
+  it(`default navigation redirects to the pizza list page`, () => {
+    cy.url().should('contain', '/pizza')
   });
 
   describe(`desktop layout`, () => {
@@ -32,25 +36,6 @@ describe(`Application layout`, () => {
         cy.get('h1')
           .should('be.visible')
           .and('contain', 'O&B');
-      });
-
-      it(`on mobile, it should NOT display the Margherita pizza image with the rest of the pizza`, () => {
-        // we get the whole pizza row which has the data-test-id
-        cy.get(`[data-test-id="Margherita"]`)
-          .as('margherita')
-          .should('be.visible');
-
-        // we search for the img tag inside the component.
-        cy.get('@margherita')
-          .find(`img`)
-          // ensures that the tag is NOT present in the DOM
-          .should('not.exist');
-
-        // We check the add to cart button as well, and make sure it is not disabled
-        cy.get('@margherita')
-          .find('[data-test-id="add to cart button"]')
-          .should('be.visible')
-          .and('not.be.disabled');
       });
     });
 });

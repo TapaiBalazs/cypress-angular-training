@@ -9,7 +9,7 @@ describe(`Pizzas page`, () => {
       cy.intercept('GET', '/api/pizza/images/*.jpg', { fixture: 'pizza.jpg' }).as('pizzaImage');
 
       // we start the test
-      cy.visit('/');
+      cy.visit('/pizza');
       // we wait for the response to arrive before executing the tests in this test file
       cy.wait('@pizzas');
     });
@@ -28,6 +28,31 @@ describe(`Pizzas page`, () => {
         // if we don't stub the /api/pizza/images/*.jpg call, this would fail the test
         .and('be.visible')
         .and('have.attr', 'src', '/api/pizza/images/1.jpg');
+
+      // We check the add to cart button as well, and make sure it is not disabled
+      cy.get('@margherita')
+        .find('[data-test-id="add to cart button"]')
+        .should('be.visible')
+        .and('not.be.disabled');
+    });
+
+    it(`on mobile, it should NOT display the Margherita pizza image with the rest of the pizza`,
+      {
+        // The resolution of an iPhone SE 2020
+        viewportHeight: 667,
+        viewportWidth: 375
+      },
+      () => {
+      // we get the whole pizza row which has the data-test-id
+      cy.get(`[data-test-id="Margherita"]`)
+        .as('margherita')
+        .should('be.visible');
+
+      // we search for the img tag inside the component.
+      cy.get('@margherita')
+        .find(`img`)
+        // ensures that the tag is NOT present in the DOM
+        .should('not.exist');
 
       // We check the add to cart button as well, and make sure it is not disabled
       cy.get('@margherita')
