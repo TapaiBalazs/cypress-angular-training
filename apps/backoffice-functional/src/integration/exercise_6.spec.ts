@@ -31,14 +31,13 @@ describe(`Exercise 6 - Order list page`, () => {
    */
 
   beforeEach(() => {
-    cy.intercept('POST', '/api/login', { body: { accessToken: `${new Date().getTime()}` } }).as('login');
     cy.intercept('GET', '/api/orders', { fixture: 'orders.json' }).as('orders');
 
-    cy.visit('/login');
-    cy.fillCredentials('oregano', 'basil')
-      .login();
-    cy.wait('@login');
-    cy.get('mat-card').click();
+    cy.visit('/admin/orders', {
+      onBeforeLoad: (window: AUTWindow) => {
+        window.sessionStorage.setItem('AUTH_TOKEN', `${new Date().getTime()}`);
+      }
+    });
     cy.wait('@orders');
   });
 
