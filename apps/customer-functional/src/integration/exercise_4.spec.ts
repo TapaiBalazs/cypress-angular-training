@@ -86,6 +86,12 @@ describe(`Exercise 4 - The Cart page`, () => {
       });
     });
 
+    it(`without an address, the 'Place order' button should be disabled`, () => {
+      cy.get(`[data-test-id="place order"]`)
+        .should('be.visible')
+        .and('be.disabled');
+    });
+
     it(`refreshing the page should keep the cart contents`, () => {
       cy.get(`[data-test-id="cart button"]`)
         .should('be.visible')
