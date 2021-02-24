@@ -21,4 +21,8 @@ describe(`Exercise 1 - Routing and Title`, () => {
    * Step 5 - Write describe blocks to separate desktop and mobile view tests.
    */
 
+  it(`default '/' navigation redirects to the pizza list page`, () => {
+    cy.visit('/');
+    cy.url().should('contain', '/pizza');
+  });
 });
