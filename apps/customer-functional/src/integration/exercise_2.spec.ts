@@ -18,12 +18,13 @@ describe(`Exercise 2 - Pizza interceptors`, () => {
    * for stubbing the pizza images. Make sure that you set the pizza prices in cents (e.g.: 1200 >> $12)
    *
    * You can modify the application's templates, but make sure you follow best practices
-   * with asserting visibility and enabled/disabled states. Use the cypres test runner to
+   * with asserting visibility and enabled/disabled states. Use the cypress test runner to
    * check for API calls.
    *
    * Step 1 - Write a test to verify that a message is displayed when an empty array is sent back
    *          as the pizza list.
-   * Step 2 - Create a pizzas.json file with a proper JSON response object. (See the swagger API documentation)
+   * Step 2 - Create a pizzas.json file with a proper JSON response object.
+   *          See: libs/api-interfaces/src/lib/pizza.interfaces.ts
    * Step 3 - Write a test that verifies that the first pizza is displayed with an image, and
    *          an enabled Add to cart button. (Keep describe scopes in mind for intercept calls!)
    * Step 4 - Write a test that verifies that on mobile the pizza image does not get displayed

@@ -1,3 +1,12 @@
+
+
+Run the following command to place yourself at the starting point
+`git checkout tags/start-here -b your_branch_name`
+
+
+
+
+
 # Cat
 
 This project is a prerequisite for a Cypress Angular Training. In this readme file, you are going to find instructions how to start the applications and the tests.

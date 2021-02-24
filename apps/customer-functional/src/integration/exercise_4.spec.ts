@@ -43,16 +43,16 @@ describe(`Exercise 4 - The Cart page`, () => {
       cy.visit('/cart');
     });
 
-    it(`asks the user to put a pizza into the cart`, () => {
-      cy.get(`[data-test-id="empty order message"]`)
-        .should('be.visible')
-        .and('contain', 'Please, place an order first.');
-    });
-
     it(`The 'Place order' button should be disabled`, () => {
       cy.get(`[data-test-id="place order"]`)
         .should('be.visible')
         .and('be.disabled');
+    });
+
+    it(`asks the user to put a pizza into the cart`, () => {
+      cy.get(`[data-test-id="empty order message"]`)
+        .should('be.visible')
+        .and('contain', 'Please, place an order first.');
     });
   });
 
@@ -90,12 +90,6 @@ describe(`Exercise 4 - The Cart page`, () => {
         .and('be.disabled');
     });
 
-    it(`should display the summed value`, () => {
-      cy.get(`[data-test-id="cart button"]`)
-        .should('be.visible')
-        .and('contain', '$26.90');
-    });
-
     it(`refreshing the page should keep the cart contents`, () => {
       cy.get(`[data-test-id="cart button"]`)
         .should('be.visible')
@@ -118,11 +112,6 @@ describe(`Exercise 4 - The Cart page`, () => {
         .and('contain', '$13.45');
     });
 
-    /**
-     * Exercise 4 part 2 - Placing an order
-     *
-     * This exercise aims to help you
-     */
     describe(`placing an order`, () => {
 
       beforeEach(() => {

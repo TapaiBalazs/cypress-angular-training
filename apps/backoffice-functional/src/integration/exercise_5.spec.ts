@@ -1,3 +1,5 @@
+import AUTWindow = Cypress.AUTWindow;
+
 describe(`Exercise 5 - Login`, () => {
   /**
    * Exercise 5 - Login
@@ -19,7 +21,7 @@ describe(`Exercise 5 - Login`, () => {
    *          credentials, the application stays on the login page and displays a message.
    *          Make sure that the error message is not visible before the first failed attempt.
    * Step 3 - Write a test that verifies that when the user successfully logs in, the app
-   *          redirects to the '/dashboard' page
+   *          redirects to the '/dashboard' page.
    * Step 4 - Extract repetitive code (e.g.: filling the credentials) into a custom Cypress Command
    *          Make sure to register it in '../support/command.ts'
    *
@@ -28,7 +30,11 @@ describe(`Exercise 5 - Login`, () => {
    */
 
   beforeEach(() => {
-    cy.visit('/dashboard');
+    cy.visit('/dashboard', {
+      onBeforeLoad: (win: AUTWindow) => {
+        win.sessionStorage.clear();
+      }
+    });
   });
 
   it(`without an active login, the application redirects to the login page`, () => {

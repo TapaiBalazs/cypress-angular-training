@@ -4,7 +4,7 @@ export interface Pizza {
   id: number,
   name: string,
   price: number,
-  imageUrl: string,
+  imageUrl: string, // for example: '/api/pizza/images/1.jpg'
   description: string;
 }
 
