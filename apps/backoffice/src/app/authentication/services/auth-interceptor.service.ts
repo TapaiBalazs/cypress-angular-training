@@ -28,8 +28,9 @@ export class AuthInterceptorService implements HttpInterceptor {
 
     return next.handle(intercepted).pipe(
       catchError(err => {
-        if (err.status === 401) {
+        if (err.status === 401 || err.status === 403) {
           const router = this.injector.get(Router);
+          sessionStorage.removeItem(AUTH_TOKEN_KEY);
           router.navigate(['/login']);
         }
         return of(null);
