@@ -34,4 +34,13 @@ describe(`Exercise 1 - Routing and Title`, () => {
       .should('be.visible')
       .and('contain', 'Oregano and Basil');
   });
+
+  it(`should have a title 'O&B'`, {
+    viewportWidth: 375,
+    viewportHeight: 667
+  }, () => {
+    cy.get('h1')
+      .should('be.visible')
+      .and('contain', 'O&B');
+  });
 });
