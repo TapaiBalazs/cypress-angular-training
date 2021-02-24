@@ -31,4 +31,18 @@ describe(`Exercise 2 - Pizza interceptors`, () => {
    *          (Keep describe scopes in mind for intercept calls!)
    */
 
+  describe(`when there is an empty pizza list response`, () => {
+    it(`a message should be displayed`, () => {
+      cy.intercept('GET', '/api/pizza/list', { body: [] }).as('emptyList');
+
+      cy.visit('/pizza');
+
+      cy.wait('@emptyList');
+
+      cy.get(`[data-test-id="no delivery"]`)
+        .should('exist')
+        .and('be.visible')
+        .and('contain', 'Sorry, but we are not delivering pizzas at the moment.');
+    });
+  });
 });

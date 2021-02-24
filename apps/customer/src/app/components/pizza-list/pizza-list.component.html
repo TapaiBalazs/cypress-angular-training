@@ -1,6 +1,6 @@
 <ng-container *ngIf='pizzaList$ | async as pizzas; else networkError'>
 
-  <h2 *ngIf='!pizzas.length'>Sorry, but we are not delivering pizzas at the moment.</h2>
+  <h2 data-test-id='no delivery' *ngIf='!pizzas.length'>Sorry, but we are not delivering pizzas at the moment.</h2>
 
   <cat-pizza-display *ngFor='let pizza of pizzas; trackBy: trackBy'
                      [pizza]='pizza'>
