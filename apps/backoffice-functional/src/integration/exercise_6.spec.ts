@@ -54,4 +54,14 @@ describe(`Exercise 6 - Order list page`, () => {
       .should('contain', '$13.45, CASH - Address: Gotham, Arkham street 92');
   });
 
+  it(`the orders contain the ordered pizzas`, () => {
+    cy.get(`[data-test-id="order item 1"]`)
+      .should('be.visible')
+      .find('summary')
+      .click();
+    cy.get(`[data-test-id="order item 1"]`)
+      .find(`[data-test-id="Diavola"]`)
+      .should('be.visible');
+  });
+
 });

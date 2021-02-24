@@ -5,7 +5,7 @@
     <summary>#{{ order.id}} - <strong>{{ order.pizzas | sum | formatMoney}}, {{order.paymentType}}</strong> - Address: {{order.address}}
     </summary>
 
-    <div class='pizza detail' *ngFor='let pizza of order.pizzas'>
+    <div [attr.data-test-id]='pizza.name' class='pizza detail' *ngFor='let pizza of order.pizzas'>
       <h3>{{ pizza.name }} - {{ pizza.price | formatMoney}}</h3>
       <p> {{ pizza.description }}</p>
     </div>
