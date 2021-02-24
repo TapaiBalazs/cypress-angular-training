@@ -1,7 +1,7 @@
 <ng-container *ngIf='cart$ | async as cart'>
 
   <div class='orders'>
-    <h2 *ngIf='!cart.length; else cartcontent'>Please, place an order first.</h2>
+    <h2 data-test-id='empty order message' *ngIf='!cart.length; else cartcontent'>Please, place an order first.</h2>
 
     <ng-container *ngFor='let order of cart'>
       <cat-order-pizza-display [pizza]='order'></cat-order-pizza-display>

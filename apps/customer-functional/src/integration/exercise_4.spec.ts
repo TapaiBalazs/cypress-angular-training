@@ -41,11 +41,20 @@ describe(`Exercise 4 - The Cart page`, () => {
    * application.
    */
 
-  it(`The 'Place order' button should be disabled`, () => {
+  beforeEach(() => {
     cy.visit('/cart');
+  });
+
+  it(`The 'Place order' button should be disabled`, () => {
     cy.get(`[data-test-id="place order"]`)
       .should('be.visible')
       .and('be.disabled');
+  });
+
+  it(`asks the user to put a pizza into the cart`, () => {
+    cy.get(`[data-test-id="empty order message"]`)
+      .should('be.visible')
+      .and('contain', 'Please, place an order first.');
   });
 
 });
