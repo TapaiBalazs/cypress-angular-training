@@ -32,4 +32,11 @@ describe(`Exercise 5 - Login`, () => {
    * application.
    */
 
+  beforeEach(() => {
+    cy.visit('/dashboard');
+  });
+
+  it(`without an active login, the application redirects to the login page`, () => {
+    cy.url().should('contain', 'login');
+  });
 });
