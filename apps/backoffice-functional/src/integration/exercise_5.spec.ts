@@ -39,4 +39,30 @@ describe(`Exercise 5 - Login`, () => {
   it(`without an active login, the application redirects to the login page`, () => {
     cy.url().should('contain', 'login');
   });
+
+  describe(`with invalid credentials`, () => {
+    it(`displays an error message`, () => {
+      cy.intercept('POST', '/api/login', { statusCode: 401 }).as('login');
+
+      cy.get(`[data-test-id="login credentials error"]`)
+        .should('not.exist');
+
+      cy.get(`[data-test-id="login username"]`)
+        .should('be.visible')
+        .and('not.be.disabled')
+        .type('Oregano');
+      cy.get(`[data-test-id="login password"]`)
+        .should('be.visible')
+        .and('not.be.disabled')
+        .type(`basil`);
+      cy.get(`[data-test-id="login button"]`)
+        .should('be.visible')
+        .and('not.be.disabled')
+        .click();
+
+      cy.get(`[data-test-id="login credentials error"]`)
+        .should('be.visible')
+        .and('have.css', 'color', 'rgb(255, 0, 0)')
+    });
+  });
 });
