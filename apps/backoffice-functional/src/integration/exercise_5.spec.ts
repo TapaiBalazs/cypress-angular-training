@@ -53,47 +53,24 @@ describe(`Exercise 5 - Login`, () => {
       cy.get(`[data-test-id="login credentials error"]`)
         .should('not.exist');
 
-      cy.get(`[data-test-id="login username"]`)
-        .should('be.visible')
-        .and('not.be.disabled')
-        .type('Oregano');
-      cy.get(`[data-test-id="login password"]`)
-        .should('be.visible')
-        .and('not.be.disabled')
-        .type(`basil`);
-      cy.get(`[data-test-id="login button"]`)
-        .should('be.visible')
-        .and('not.be.disabled')
-        .click();
-
+      cy.fillCredentials('Oregano', 'basil')
+        .login();
       cy.get(`[data-test-id="login credentials error"]`)
         .should('be.visible')
-        .and('have.css', 'color', 'rgb(255, 0, 0)');
+        .and('have.css', 'color', 'rgb(255, 0, 0)')
     });
   });
 
   describe(`with valid credentials`, () => {
     it(`navigates the user to the dashboard`, () => {
-      cy.intercept('POST', '/api/login', { body: { accessToken: `${new Date().getTime()}` } }).as('login');
+      cy.intercept('POST', '/api/login', { body: { accessToken: `${new Date().getTime()}`} }).as('login');
 
       cy.get(`[data-test-id="login credentials error"]`)
         .should('not.exist');
 
-      cy.get(`[data-test-id="login username"]`)
-        .should('be.visible')
-        .and('not.be.disabled')
-        .type('Oregano');
-      cy.get(`[data-test-id="login password"]`)
-        .should('be.visible')
-        .and('not.be.disabled')
-        .type(`basil`);
-      cy.get(`[data-test-id="login button"]`)
-        .should('be.visible')
-        .and('not.be.disabled')
-        .click();
-
+      cy.fillCredentials('Oregano', 'basil')
+        .login();
       cy.url().should('contain', '/admin/dashboard');
     });
-
   });
 });
