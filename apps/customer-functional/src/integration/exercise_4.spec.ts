@@ -41,20 +41,61 @@ describe(`Exercise 4 - The Cart page`, () => {
    * application.
    */
 
-  beforeEach(() => {
-    cy.visit('/cart');
+  describe(`with an empty cart`, () => {
+    beforeEach(() => {
+      cy.visit('/cart');
+    });
+
+    it(`The 'Place order' button should be disabled`, () => {
+      cy.get(`[data-test-id="place order"]`)
+        .should('be.visible')
+        .and('be.disabled');
+    });
+
+    it(`asks the user to put a pizza into the cart`, () => {
+      cy.get(`[data-test-id="empty order message"]`)
+        .should('be.visible')
+        .and('contain', 'Please, place an order first.');
+    });
   });
 
-  it(`The 'Place order' button should be disabled`, () => {
-    cy.get(`[data-test-id="place order"]`)
-      .should('be.visible')
-      .and('be.disabled');
-  });
+  describe(`with cart contents`, () => {
 
-  it(`asks the user to put a pizza into the cart`, () => {
-    cy.get(`[data-test-id="empty order message"]`)
-      .should('be.visible')
-      .and('contain', 'Please, place an order first.');
+    beforeEach(() => {
+      cy.intercept('GET', '/api/pizza/list', { fixture: 'pizzas.json' }).as('pizzas');
+      cy.intercept('GET', '/api/pizza/images/*.jpg', { fixture: 'pizza.jpg' }).as('pizzaImage');
+      cy.visit('/pizza');
+      cy.wait('@pizzas');
+
+      cy.get(`[data-test-id="Prosciutto"]`)
+        .should('be.visible')
+        .find('[data-test-id="add to cart button"]')
+        .should('be.visible')
+        .and('not.be.disabled')
+        .click();
+      cy.get(`[data-test-id="Diavola"]`)
+        .should('be.visible')
+        .find('[data-test-id="add to cart button"]')
+        .should('be.visible')
+        .and('not.be.disabled')
+        .click();
+      cy.get(`[data-test-id="cart button"]`)
+        .should('be.visible')
+        .and('contain', '$26.90')
+        .click();
+      cy.url().should('contain', '/cart');
+    });
+
+    it(`refreshing the page should keep the cart contents`, () => {
+      cy.get(`[data-test-id="cart button"]`)
+        .should('be.visible')
+        .and('contain', '$26.90');
+      cy.reload();
+      cy.get(`[data-test-id="cart button"]`)
+        .should('be.visible')
+        .and('contain', '$26.90');
+    });
+
   });
 
 });
