@@ -32,4 +32,11 @@ describe(`Exercise 3 - The Cart button`, () => {
    * for requests.
    */
 
+  beforeEach(() => {
+    cy.intercept('GET', '/api/pizza/list', { fixture: 'pizzas.json' }).as('pizzas');
+    cy.intercept('GET', '/api/pizza/images/*.jpg', { fixture: 'pizza.jpg' }).as('pizzaImage');
+    cy.visit('/pizza');
+    cy.wait('@pizzas');
+  });
+
 });
