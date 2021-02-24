@@ -1,15 +1,67 @@
+# Cypress Angular Training by ThisDot
+
+## Prerequisites
+
+1. NodeJS v14.x.x installed
+2. run `npm install` to install dependencies
+3. run `npm run cypress:setup` to make sure cypress is verified on your machine
+4. check out the starting point with the following command
+    ```
+      git checkout tags/ex0s0 -b code-along
+    ```
+
+## Project structure
+
+The project uses [nx worspace](https://nx.dev/). This is a monorepo style development environment. You can find the application source codes under the `/apps` folder.
+
+During this training we are focusing on the `/aps/customer` and the `/aps/backoffice` front-end applications. For these two applications, cypress is already set up for you in the corresponding folders: `/apps/customer-functional` and `/apps/backoffice-functional`.
 
 
-Run the following command to place yourself at the starting point
-`git checkout tags/start-here -b your_branch_name`
+## Exercises
 
+### Exercise files
 
+You can find the exercise test base files at the following locations:
+```text
+/apps/customer-functional/integration/exercise_1.spec.ts
+/apps/customer-functional/integration/exercise_2.spec.ts
+/apps/customer-functional/integration/exercise_3.spec.ts
+/apps/customer-functional/integration/exercise_4.spec.ts
+/apps/backoffice-functional/integration/exercixe_5.spec.ts
+/apps/backoffice-functional/integration/exercixe_6.spec.ts
+```
 
+During the training you might need to modify the source code of the demo applications. You _only_ need to change `html` template files.
 
+### Cypress test runner commands
 
-# Cat
+Use the Cypress test runner. For exercises 1-4, run `npm run functional:customer:debug`. For exercises 5-6, run `npm run functional:backoffice:debug`.
 
-This project is a prerequisite for a Cypress Angular Training. In this readme file, you are going to find instructions how to start the applications and the tests.
+### If you get lost
+
+Anything can go wrong during a training, it might happen that you cannot finish an exercise in time. The repository has an existing solution backup system.
+
+If you need to catch up with your instructor, run the following command:
+```
+git checkout tags/ex{exercise number}s{step number} -b {new_branch_name}
+```
+
+- Replace `{exercise number}` with the exercise number you are currently on.
+- Replace `{step number}` with the step you _could not finish_.
+- Replace `{new_branch_name}` with a unique branch name
+
+For example if you could not finish `Exercise 3 Step 2`, the following command would
+create a branch named `got-stuck-1` at the beginning of `Exercise 3 step 3` (step 2 would be finished)
+
+```
+git checkout tags/ex3s2 -b got-stuck-1
+```
+
+##Training instructions end here
+
+---
+
+# Development notes
 
 ## Dummy API
 
