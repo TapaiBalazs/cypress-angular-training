@@ -32,17 +32,43 @@ describe(`Exercise 2 - Pizza interceptors`, () => {
    */
 
   describe(`when there is an empty pizza list response`, () => {
-    it(`a message should be displayed`, () => {
+    beforeEach(() => {
       cy.intercept('GET', '/api/pizza/list', { body: [] }).as('emptyList');
-
-      cy.visit('/pizza');
-
+      cy.visit('/');
       cy.wait('@emptyList');
+    });
 
+    it(`a message should be displayed`, () => {
       cy.get(`[data-test-id="no delivery"]`)
         .should('exist')
         .and('be.visible')
         .and('contain', 'Sorry, but we are not delivering pizzas at the moment.');
+    });
+  });
+
+  describe(`when there is a proper pizza list response`, () => {
+    beforeEach(() => {
+      cy.intercept('GET', '/api/pizza/list', { fixture: 'pizzas.json' }).as('pizzas');
+      cy.intercept('GET', '/api/pizza/images/*.jpg', { fixture: 'pizza.jpg' }).as('pizzaImage');
+      cy.visit('/pizza');
+      cy.wait('@pizzas');
+    });
+
+    it(`should display the Margherita pizza`, () => {
+      cy.get(`[data-test-id="Margherita"]`)
+        .as('margherita')
+        .should('be.visible');
+
+      cy.get('@margherita')
+        .find(`img`)
+        .should('exist')
+        .and('be.visible')
+        .and('have.attr', 'src', '/api/pizza/images/1.jpg');
+
+      cy.get('@margherita')
+        .find('[data-test-id="add to cart button"]')
+        .should('be.visible')
+        .and('not.be.disabled');
     });
   });
 });
