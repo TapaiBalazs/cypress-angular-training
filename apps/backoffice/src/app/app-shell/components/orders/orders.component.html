@@ -1,7 +1,7 @@
 <ng-container *ngIf='orders$ | async let orders; else networkError'>
   <h2 *ngIf='!orders.length'> No orders. </h2>
 
-  <details *ngFor='let order of orders; let i = index'>
+  <details [attr.data-test-id]='"order item " + (i + 1)' *ngFor='let order of orders; let i = index'>
     <summary>#{{ order.id}} - <strong>{{ order.pizzas | sum | formatMoney}}, {{order.paymentType}}</strong> - Address: {{order.address}}
     </summary>
 

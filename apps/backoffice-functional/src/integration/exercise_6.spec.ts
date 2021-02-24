@@ -30,4 +30,28 @@ describe(`Exercise 6 - Order list page`, () => {
    * Make sure you use best practices, like asserting visibility and structuring your test files.
    */
 
+  beforeEach(() => {
+    cy.intercept('POST', '/api/login', { body: { accessToken: `${new Date().getTime()}` } }).as('login');
+    cy.intercept('GET', '/api/orders', { fixture: 'orders.json' }).as('orders');
+
+    cy.visit('/login');
+    cy.fillCredentials('oregano', 'basil')
+      .login();
+    cy.wait('@login');
+    cy.get('mat-card').click();
+    cy.wait('@orders');
+  });
+
+  it(`displays the orders`, () => {
+    cy.get(`[data-test-id="order item 1"]`)
+      .should('be.visible')
+      .find('summary')
+      .should('contain', '$26.90, CARD - Address: Gotham, Crime Alley 32.');
+
+    cy.get(`[data-test-id="order item 2"]`)
+      .should('be.visible')
+      .find('summary')
+      .should('contain', '$13.45, CASH - Address: Gotham, Arkham street 92');
+  });
+
 });
