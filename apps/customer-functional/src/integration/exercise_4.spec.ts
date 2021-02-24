@@ -102,6 +102,18 @@ describe(`Exercise 4 - The Cart page`, () => {
         .and('contain', '$26.90');
     });
 
+    it(`clicking on the Remove button removes the order`, () => {
+      cy.get(`[data-test-id="order_Prosciutto"]`)
+        .should('be.visible')
+        .find('[data-test-id="remove from cart button"]')
+        .should('be.visible')
+        .and('not.be.disabled')
+        .click();
+      cy.get(`[data-test-id="cart button"]`)
+        .should('be.visible')
+        .and('contain', '$13.45');
+    });
+
   });
 
 });

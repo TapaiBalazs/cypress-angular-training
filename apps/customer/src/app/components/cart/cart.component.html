@@ -4,7 +4,7 @@
     <h2 data-test-id='empty order message' *ngIf='!cart.length; else cartcontent'>Please, place an order first.</h2>
 
     <ng-container *ngFor='let order of cart'>
-      <cat-order-pizza-display [pizza]='order'></cat-order-pizza-display>
+      <cat-order-pizza-display [attr.data-test-id]='"order_" + order.name' [pizza]='order'></cat-order-pizza-display>
     </ng-container>
   </div>
   <form class='address' [formGroup]='form'>
