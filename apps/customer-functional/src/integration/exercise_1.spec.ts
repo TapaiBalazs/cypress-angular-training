@@ -21,38 +21,4 @@ describe(`Exercise 1 - Routing and Title`, () => {
    * Step 5 - Write describe blocks to separate desktop and mobile view tests.
    */
 
-  beforeEach(() => {
-    cy.visit('/');
-  });
-
-  it(`default '/' navigation redirects to the pizza list page`, () => {
-    cy.url().should('contain', '/pizza');
-  });
-
-  describe(`desktop layout`, () => {
-    const TITLE = 'Oregano and Basil';
-
-    it(`should have a title '${TITLE}'`, () => {
-      cy.get('h1')
-        .should('be.visible')
-        .and('contain', TITLE);
-    });
-  });
-
-  describe(`mobile layout`,
-    // we override the config here
-    {
-      // The resolution of an iPhone SE 2020
-      viewportWidth: 375,
-      viewportHeight: 667
-    },
-    () => {
-      const TITLE = 'O&B';
-
-      it(`should have a title '${TITLE}'`, () => {
-        cy.get('h1')
-          .should('be.visible')
-          .and('contain', TITLE);
-      });
-    });
 });
