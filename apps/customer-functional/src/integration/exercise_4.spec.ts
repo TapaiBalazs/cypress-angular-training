@@ -114,6 +114,49 @@ describe(`Exercise 4 - The Cart page`, () => {
         .and('contain', '$13.45');
     });
 
+    describe(`placing an order`, () => {
+
+      it(`a successful order navigates to the /success page and clears the cart contents`, () => {
+        cy.get('#city')
+          .should('be.visible')
+          .and('not.disabled')
+          .type(`Gotham`);
+
+        cy.get('#street')
+          .should('be.visible')
+          .and('not.disabled')
+          .type(`Crime Alley 32.`);
+
+        cy.get('#payment_method')
+          .should('be.visible')
+          .and('not.disabled')
+          .select('CARD');
+
+        cy.intercept('POST', '/api/order', { body: 1 }).as('orderRequest');
+
+        cy.get(`[data-test-id="place order"]`)
+          .should('be.visible')
+          .and('not.be.disabled')
+          .click();
+
+        cy.wait('@orderRequest')
+          .its('request.body').should('deep.include', {
+          address: 'Gotham, Crime Alley 32.',
+          paymentType: 'CARD'
+        });
+        cy.url().should('contain', '/success');
+
+        cy.get(`[data-test-id="success message"]`)
+          .should('be.visible')
+          .and('contain', 'Your order is on its way!');
+
+        cy.get(`[data-test-id="cart button"]`)
+          .should('be.visible')
+          .and('have.css', 'opacity', '0.7')
+          .and('contain', '$0');
+      });
+    });
+
   });
 
 });
