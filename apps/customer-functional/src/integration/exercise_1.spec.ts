@@ -20,17 +20,18 @@ describe(`Exercise 1 - Routing and Title`, () => {
    *          An iPhone SE 2020's resolution is 375*667;
    * Step 5 - Write describe blocks to separate desktop and mobile view tests.
    */
-  const TITLE = 'Oregano and Basil';
+
+  beforeEach(() => {
+    cy.visit('/');
+  });
 
   it(`default '/' navigation redirects to the pizza list page`, () => {
-    cy.visit('/');
     cy.url().should('contain', '/pizza');
   });
 
-  it(`should have a title '${TITLE}'`, () => {
-    cy.visit('/');
+  it(`should have a title 'Oregano and Basil'`, () => {
     cy.get('h1')
       .should('be.visible')
-      .and('contain', TITLE);
+      .and('contain', 'Oregano and Basil');
   });
 });
