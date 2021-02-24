@@ -70,5 +70,25 @@ describe(`Exercise 2 - Pizza interceptors`, () => {
         .should('be.visible')
         .and('not.be.disabled');
     });
+
+    it(`on mobile, it should NOT display the Margherita pizza image with the rest of the pizza`,
+      {
+        viewportHeight: 667,
+        viewportWidth: 375
+      },
+      () => {
+        cy.get(`[data-test-id="Margherita"]`)
+          .as('margherita')
+          .should('be.visible');
+
+        cy.get('@margherita')
+          .find(`img`)
+          .should('not.exist');
+
+        cy.get('@margherita')
+          .find('[data-test-id="add to cart button"]')
+          .should('be.visible')
+          .and('not.be.disabled');
+      });
   });
 });
