@@ -41,4 +41,11 @@ describe(`Exercise 4 - The Cart page`, () => {
    * application.
    */
 
+  it(`The 'Place order' button should be disabled`, () => {
+    cy.visit('/cart');
+    cy.get(`[data-test-id="place order"]`)
+      .should('be.visible')
+      .and('be.disabled');
+  });
+
 });

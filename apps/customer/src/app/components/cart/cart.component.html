@@ -30,6 +30,7 @@
 
     <div class='button-container'>
       <button class='place-order'
+              data-test-id='place order'
               [disabled]='(!cart.length || !form.valid)'
               (click)='sendOrder()'>Place order
       </button>
