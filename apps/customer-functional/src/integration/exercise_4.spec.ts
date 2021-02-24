@@ -61,29 +61,29 @@ describe(`Exercise 4 - The Cart page`, () => {
 
   describe(`with cart contents`, () => {
 
-    beforeEach(() => {
-      cy.intercept('GET', '/api/pizza/list', { fixture: 'pizzas.json' }).as('pizzas');
-      cy.intercept('GET', '/api/pizza/images/*.jpg', { fixture: 'pizza.jpg' }).as('pizzaImage');
-      cy.visit('/pizza');
-      cy.wait('@pizzas');
+    const MOCK_CART_CONTENT = [
+      {
+        id: 2,
+        name: 'Prosciutto',
+        price: 1345,
+        imageUrl: '/api/pizza/images/2.jpg',
+        description: 'Tomato sauce, ham, mozzarella, oregano'
+      },
+      {
+        id: 3,
+        name: 'Diavola',
+        price: 1345,
+        imageUrl: '/api/pizza/images/3.jpg',
+        description: 'Tomato sauce, Italian spicy salami, mozzarella'
+      }
+    ];
 
-      cy.get(`[data-test-id="Prosciutto"]`)
-        .should('be.visible')
-        .find('[data-test-id="add to cart button"]')
-        .should('be.visible')
-        .and('not.be.disabled')
-        .click();
-      cy.get(`[data-test-id="Diavola"]`)
-        .should('be.visible')
-        .find('[data-test-id="add to cart button"]')
-        .should('be.visible')
-        .and('not.be.disabled')
-        .click();
-      cy.get(`[data-test-id="cart button"]`)
-        .should('be.visible')
-        .and('contain', '$26.90')
-        .click();
-      cy.url().should('contain', '/cart');
+    beforeEach(() => {
+      cy.visit('/cart', {
+        onBeforeLoad: (window: AUTWindow) => {
+          window.localStorage.setItem('cart', JSON.stringify(MOCK_CART_CONTENT))
+        }
+      });
     });
 
     it(`refreshing the page should keep the cart contents`, () => {
