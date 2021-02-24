@@ -53,4 +53,17 @@ describe(`Exercise 3 - The Cart button`, () => {
       .and('contain', '$0');
   });
 
+  it(`pizzas can be added to the cart which updates the css`, () => {
+    cy.get(`[data-test-id="Margherita"]`)
+      .should('be.visible')
+      .find('[data-test-id="add to cart button"]')
+      .should('be.visible')
+      .and('not.be.disabled')
+      .click();
+    cy.get(`[data-test-id="cart button"]`)
+      .should('be.visible')
+      .and('have.css', 'opacity', '1')
+      .and('contain', '$12.90');
+  });
+
 });
