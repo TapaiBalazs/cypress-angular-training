@@ -66,4 +66,21 @@ describe(`Exercise 3 - The Cart button`, () => {
       .and('contain', '$12.90');
   });
 
+  it(`adding multiple pizzas sums up the order price`, () => {
+    cy.get(`[data-test-id="Margherita"]`)
+      .should('be.visible')
+      .find('[data-test-id="add to cart button"]')
+      .should('be.visible')
+      .and('not.be.disabled')
+      .click();
+    cy.get(`[data-test-id="Piccante"]`)
+      .should('be.visible')
+      .find('[data-test-id="add to cart button"]')
+      .should('be.visible')
+      .and('not.be.disabled')
+      .click();
+    cy.get(`[data-test-id="cart button"]`)
+      .should('be.visible')
+      .and('contain', '$27.70');
+  });
 });
