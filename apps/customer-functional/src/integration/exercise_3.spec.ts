@@ -46,4 +46,11 @@ describe(`Exercise 3 - The Cart button`, () => {
     cy.url().should('contain', '/cart');
   });
 
+  it(`the cart button should always be visible`, () => {
+    cy.get(`[data-test-id="cart button"]`)
+      .should('be.visible')
+      .and('have.css', 'opacity', '0.7')
+      .and('contain', '$0');
+  });
+
 });
