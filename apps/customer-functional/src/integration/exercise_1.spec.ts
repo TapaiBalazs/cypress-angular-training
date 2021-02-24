@@ -29,18 +29,28 @@ describe(`Exercise 1 - Routing and Title`, () => {
     cy.url().should('contain', '/pizza');
   });
 
-  it(`should have a title 'Oregano and Basil'`, () => {
-    cy.get('h1')
-      .should('be.visible')
-      .and('contain', 'Oregano and Basil');
+  describe(`desktop layout`, () => {
+    const TITLE = 'Oregano and Basil';
+
+    it(`should have a title '${TITLE}'`, () => {
+      cy.get('h1')
+        .should('be.visible')
+        .and('contain', TITLE);
+    });
   });
 
-  it(`should have a title 'O&B'`, {
-    viewportWidth: 375,
-    viewportHeight: 667
-  }, () => {
-    cy.get('h1')
-      .should('be.visible')
-      .and('contain', 'O&B');
-  });
+  describe(`mobile layout`,
+    {
+      viewportWidth: 375,
+      viewportHeight: 667
+    },
+    () => {
+      const TITLE = 'O&B';
+
+      it(`should have a title '${TITLE}'`, () => {
+        cy.get('h1')
+          .should('be.visible')
+          .and('contain', TITLE);
+      });
+    });
 });
