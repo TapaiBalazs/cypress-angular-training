@@ -39,4 +39,11 @@ describe(`Exercise 3 - The Cart button`, () => {
     cy.wait('@pizzas');
   });
 
+  it(`clicking on the cart button navigates to the /cart page`, () => {
+    cy.get(`[data-test-id="cart button"]`)
+      .should('be.visible')
+      .click();
+    cy.url().should('contain', '/cart');
+  });
+
 });
