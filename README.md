@@ -57,7 +57,7 @@ create a branch named `got-stuck-1` at the beginning of `Exercise 3 step 3` (ste
 git checkout tags/ex3s2 -b got-stuck-1
 ```
 
-##Training instructions end here
+## Training instructions end here
 
 ---
 

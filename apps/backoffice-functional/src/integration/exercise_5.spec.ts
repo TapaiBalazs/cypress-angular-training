@@ -15,6 +15,11 @@ describe(`Exercise 5 - Login`, () => {
    * 3. When the user fills the username and password fields with valid credentials,
    *    the successful login should redirect them to the '/dashboard' route.
    *
+   * This application is only a demo application, it simulates authentication with a simple
+   * `new Date().getTime()`.
+   * It is not an industry best practice, it is just for the training. In real life one would
+   * use a JWT, or handle authentication with cookies to be secure.
+   *
    * Step 1 - Write a test that verifies that opening a guarded route redirects to the
    *          '/login' page.
    * Step 2 - Write a test that verifies that when the user tries to log in with invalid

@@ -31,26 +31,24 @@ describe(`Exercise 2 - Pizza interceptors`, () => {
    *          (Keep describe scopes in mind for intercept calls!)
    */
 
-  describe(`when there is`, () => {
-    describe(`an empty pizza list response`, () => {
-      beforeEach(() => {
-        cy.intercept('GET', '/api/pizza/list', { body: [] }).as('emptyList');
-        // we start the test
-        cy.visit('/');
-        // we wait for the response to arrive before executing the tests in this test file
-        cy.wait('@emptyList');
-      });
-
-      it(`a message should be displayed`, () => {
-        // we get the whole pizza row which has the data-test-id
-        cy.get(`[data-test-id="no delivery"]`)
-          .should('exist')
-          .and('be.visible')
-          .and('contain', 'Sorry, but we are not delivering pizzas at the moment.');
-      });
+  describe(`when there is an empty pizza list response`, () => {
+    beforeEach(() => {
+      cy.intercept('GET', '/api/pizza/list', { body: [] }).as('emptyList');
+      // we start the test
+      cy.visit('/');
+      // we wait for the response to arrive before executing the tests in this test file
+      cy.wait('@emptyList');
     });
 
-    describe(`a proper pizza list response`, () => {
+    it(`a message should be displayed`, () => {
+      // we get the whole pizza row which has the data-test-id
+      cy.get(`[data-test-id="no delivery"]`)
+        .should('exist')
+        .and('be.visible')
+        .and('contain', 'Sorry, but we are not delivering pizzas at the moment.');
+    });
+
+    describe(`When there is a proper pizza list response`, () => {
       beforeEach(() => {
         // We intercept the list request
         cy.intercept('GET', '/api/pizza/list', { fixture: 'pizzas.json' }).as('pizzas');

@@ -12,6 +12,11 @@ describe(`Exercise 6 - Order list page`, () => {
    * 3. If the orders request returns with a status 403, the user is redirected to the
    *    login page and the previous token is removed from sessionStorage
    *
+   * This application is only a demo application, it simulates authentication with a simple
+   * `new Date().getTime()`.
+   * It is not an industry best practice, it is just for the training. In real life one would
+   * use a JWT, or handle authentication with cookies to be secure.
+   *
    * Step 1 - Write a test that can navigate to the '/admin/orders' page with an active
    *          login and verify that the orders are present. (use '../fixtures/orders.json')
    *          On the '/dasbhoard' page, there is only one '<mat-card>' element which is
