@@ -14,100 +14,102 @@ describe(`Exercise 2 - Pizza interceptors`, () => {
    *    the user is notified about the error in a message.
    *
    * Write the necessary tests to cover the above requirements. Use the '../fixtures' folder
-   * (relative to this file) for your fixtures or use static objects. A 'pizza.jpg' is provided
-   * for stubbing the pizza images. Make sure that you set the pizza prices in cents (e.g.: 1200 >> $12)
+   * (relative to this file) for your fixtures or use static objects. A 'pizza.jpg' and a 'pizzas.json'
+   * is provided for stubbing the pizza images. The pizza prices are in cents (e.g.: 1200 >> $12)
    *
-   * You can modify the application's templates, but make sure you follow best practices
+   * You can modify the application's templates to add data-test-id properties, but make sure you follow best practices
    * with asserting visibility and enabled/disabled states. Use the cypress test runner to
    * check for API calls.
    *
    * Step 1 - Write a test to verify that a message is displayed when an empty array is sent back
    *          as the pizza list.
-   * Step 2 - Create a pizzas.json file with a proper JSON response object.
-   *          See: libs/api-interfaces/src/lib/pizza.interfaces.ts
-   * Step 3 - Write a test that verifies that the first pizza is displayed with an image, and
+   * Step 2 - Write a test that verifies that the first pizza is displayed with an image, and
    *          an enabled Add to cart button. (Keep describe scopes in mind for intercept calls!)
-   * Step 4 - Write a test that verifies that on mobile the pizza image does not get displayed
-   * Step 5 - Write two tests to check network and service error behavior.
+   *          Use the '../fixtures/pizzas.json' as your fixture.
+   * Step 3 - Write a test that verifies that on mobile the pizza image does not get displayed
+   * Step 4 - Write two tests to check network and service error behavior.
    *          (Keep describe scopes in mind for intercept calls!)
    */
-  describe(`when there is an empty pizza list response`, () => {
-    beforeEach(() => {
-      cy.intercept('GET', '/api/pizza/list', { body: [] }).as('emptyList');
-      // we start the test
-      cy.visit('/');
-      // we wait for the response to arrive before executing the tests in this test file
-      cy.wait('@emptyList');
+
+  describe(`when there is`, () => {
+    describe(`an empty pizza list response`, () => {
+      beforeEach(() => {
+        cy.intercept('GET', '/api/pizza/list', { body: [] }).as('emptyList');
+        // we start the test
+        cy.visit('/');
+        // we wait for the response to arrive before executing the tests in this test file
+        cy.wait('@emptyList');
+      });
+
+      it(`a message should be displayed`, () => {
+        // we get the whole pizza row which has the data-test-id
+        cy.get(`[data-test-id="no delivery"]`)
+          .should('exist')
+          .and('be.visible')
+          .and('contain', 'Sorry, but we are not delivering pizzas at the moment.');
+      });
     });
 
-    it(`a message should be displayed`, () => {
-      // we get the whole pizza row which has the data-test-id
-      cy.get(`[data-test-id="no delivery"]`)
-        .should('exist')
-        .and('be.visible')
-        .and('contain', 'Sorry, but we are not delivering pizzas at the moment.');
-    });
-  });
+    describe(`a proper pizza list response`, () => {
+      beforeEach(() => {
+        // We intercept the list request
+        cy.intercept('GET', '/api/pizza/list', { fixture: 'pizzas.json' }).as('pizzas');
+        // We intercept the pizza image requests and we stub with one image, so the image will be visible!
+        // intercept can intercept image requests as well, and you can provide an image as a fixture
+        cy.intercept('GET', '/api/pizza/images/*.jpg', { fixture: 'pizza.jpg' }).as('pizzaImage');
 
-  describe(`when there is a proper pizza list response`, () => {
-    beforeEach(() => {
-      // We intercept the list request
-      cy.intercept('GET', '/api/pizza/list', { fixture: 'pizzas.json' }).as('pizzas');
-      // We intercept the pizza image requests and we stub with one image, so the image will be visible!
-      // intercept can intercept image requests as well, and you can provide an image as a fixture
-      cy.intercept('GET', '/api/pizza/images/*.jpg', { fixture: 'pizza.jpg' }).as('pizzaImage');
+        // we start the test
+        cy.visit('/pizza');
+        // we wait for the response to arrive before executing the tests in this test file
+        cy.wait('@pizzas');
+      });
 
-      // we start the test
-      cy.visit('/pizza');
-      // we wait for the response to arrive before executing the tests in this test file
-      cy.wait('@pizzas');
-    });
+      it(`should display the Margherita pizza`, () => {
+        // we get the whole pizza row which has the data-test-id
+        cy.get(`[data-test-id="Margherita"]`)
+          .as('margherita')
+          .should('be.visible');
 
-    it(`should display the Margherita pizza`, () => {
-      // we get the whole pizza row which has the data-test-id
-      cy.get(`[data-test-id="Margherita"]`)
-        .as('margherita')
-        .should('be.visible');
+        // we search for the img tag inside the component.
+        cy.get('@margherita')
+          .find(`img`)
+          // ensures that the tag is present in the DOM
+          .should('exist')
+          // if we don't stub the /api/pizza/images/*.jpg call, this would fail the test
+          .and('be.visible')
+          .and('have.attr', 'src', '/api/pizza/images/1.jpg');
 
-      // we search for the img tag inside the component.
-      cy.get('@margherita')
-        .find(`img`)
-        // ensures that the tag is present in the DOM
-        .should('exist')
-        // if we don't stub the /api/pizza/images/*.jpg call, this would fail the test
-        .and('be.visible')
-        .and('have.attr', 'src', '/api/pizza/images/1.jpg');
+        // We check the add to cart button as well, and make sure it is not disabled
+        cy.get('@margherita')
+          .find('[data-test-id="add to cart button"]')
+          .should('be.visible')
+          .and('not.be.disabled');
+      });
 
-      // We check the add to cart button as well, and make sure it is not disabled
-      cy.get('@margherita')
-        .find('[data-test-id="add to cart button"]')
-        .should('be.visible')
-        .and('not.be.disabled');
-    });
+      it(`on mobile, it should NOT display the Margherita pizza image with the rest of the pizza`,
+        {
+          // The resolution of an iPhone SE 2020
+          viewportHeight: 667,
+          viewportWidth: 375
+        },
+        () => {
+          // we get the whole pizza row which has the data-test-id
+          cy.get(`[data-test-id="Margherita"]`)
+            .as('margherita')
+            .should('be.visible');
 
-    it(`on mobile, it should NOT display the Margherita pizza image with the rest of the pizza`,
-      {
-        // The resolution of an iPhone SE 2020
-        viewportHeight: 667,
-        viewportWidth: 375
-      },
-      () => {
-      // we get the whole pizza row which has the data-test-id
-      cy.get(`[data-test-id="Margherita"]`)
-        .as('margherita')
-        .should('be.visible');
+          // we search for the img tag inside the component.
+          cy.get('@margherita')
+            .find(`img`)
+            // ensures that the tag is NOT present in the DOM
+            .should('not.exist');
 
-      // we search for the img tag inside the component.
-      cy.get('@margherita')
-        .find(`img`)
-        // ensures that the tag is NOT present in the DOM
-        .should('not.exist');
-
-      // We check the add to cart button as well, and make sure it is not disabled
-      cy.get('@margherita')
-        .find('[data-test-id="add to cart button"]')
-        .should('be.visible')
-        .and('not.be.disabled');
+          // We check the add to cart button as well, and make sure it is not disabled
+          cy.get('@margherita')
+            .find('[data-test-id="add to cart button"]')
+            .should('be.visible')
+            .and('not.be.disabled');
+        });
     });
   });
 

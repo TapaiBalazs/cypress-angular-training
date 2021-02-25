@@ -11,7 +11,8 @@ describe(`Exercise 4 - The Cart page`, () => {
    * 1. When there are no pizzas added to the cart, a message is displayed to the user
    * 2. The 'place order' button should be disabled until there are no pizzas and
    *    the form is not filled
-   * 3. Cart content is not dropped, if the user reloads the page.
+   * 3. Cart content is not dropped, if the user reloads the page, it gets stored
+   *    in localStorage.
    * 4. The cart button displays the summed value of the order items.
    * 5. Pizzas from the order can be removed with the remove-from-cart buttons
    *
@@ -23,9 +24,11 @@ describe(`Exercise 4 - The Cart page`, () => {
    *          opened, the place order button is disabled.
    * Step 2 - Write a test that verifies that when a completely empty cart page is
    *          opened, there is a message for the user.
-   * Step 3 - Write a test that populates the cart and reloads the page to test if
-   *          the cart contents are kept.
-   * Step 4 - Make sure you don't open the '/pizza' page for adding items to the cart.
+   * Step 3 - Write a test that populates the cart from the '/pizza' page and then
+   *          navigates to the cart page and reloads it. Make sure that the cart
+   *          contents are kept after reload.
+   * Step 4 - The previous test takes too long. Rewrite the test, so it does not
+   *          need to open the '/pizza' page to populate the cart contents.
    * Step 5 - Write a test that verifies that when a cart is not empty, the place
    *          order button is disabled if the order form is empty.
    * Step 6 - Write a test that verifies that items can be removed from the cart

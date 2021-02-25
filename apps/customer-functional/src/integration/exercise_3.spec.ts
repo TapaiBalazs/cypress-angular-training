@@ -8,7 +8,8 @@ describe(`Exercise 3 - The Cart button`, () => {
    * There are 5 requirements that need to be covered in this exercise
    * 1. Clicking on the cart button should navigate to the '/cart' page
    * 2. The cart button should always be visible (on the pizzas page as well)
-   * 3. When the cart is empty, the cart button text has opacity 0.7 applied.
+   * 3. When the cart is empty, the cart button text has opacity 0.7 applied
+   *    and it display $0 as the price.
    * 4. When the cart has content, the cart button text has opacity 1 applied.
    * 5. The cart button displays the sum of added pizzas in US dollars ($26.71)
    *
@@ -20,7 +21,7 @@ describe(`Exercise 3 - The Cart button`, () => {
    * Step 2 - Write a test to verify that clicking on the cart button navigates
    *          to the '/cart' page.
    * Step 3 - Write a test that verifies that the cart button is visible and when
-   *          empty, its text has opacity 0.7 css.
+   *          empty, its text has opacity 0.7 css and has $0 as its value.
    * Step 4 - Write a test that verifies that the cart button text has opacity 0.7
    *          css applied, and contains the proper price of the added pizza.
    * Step 5 - Write a test that verifies that when multiple pizzas are added to the

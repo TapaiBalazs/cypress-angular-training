@@ -14,10 +14,13 @@ describe(`Exercise 6 - Order list page`, () => {
    *
    * Step 1 - Write a test that can navigate to the '/admin/orders' page with an active
    *          login and verify that the orders are present. (use '../fixtures/orders.json')
+   *          On the '/dasbhoard' page, there is only one '<mat-card>' element which is
+   *          clickable and navigates to the '/admin/orders' page.
    * Step 2 - Write a test that opens one of the order details and verifies that the pizzas
    *          are present
    * Step 3 - These tests take too long, refactor them in a way that you don't need to start
    *          every test from the login page.
+   *          The 'AUTH_TOKEN' gets stored in the sessionStorage after a successful login.
    * Step 4 - Write a test that simulates that the user's token has expired before they visited
    *          the orders page, to verify that the application redirects and clears sessionStorage
    *
@@ -26,7 +29,7 @@ describe(`Exercise 6 - Order list page`, () => {
 
   describe(`with active token`, () => {
     beforeEach(() => {
-      cy.intercept('GET', 'api/orders', { fixture: 'orders.json' }).as('orders');
+      cy.intercept('GET', '/api/orders', { fixture: 'orders.json' }).as('orders');
 
       cy.visit('/admin/orders', {
         onBeforeLoad: (window: AUTWindow) => {
