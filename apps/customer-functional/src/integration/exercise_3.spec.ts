@@ -22,8 +22,9 @@ describe(`Exercise 3 - The Cart button`, () => {
    *          to the '/cart' page.
    * Step 3 - Write a test that verifies that the cart button is visible and when
    *          empty, its text has opacity 0.7 css and has $0 as its value.
-   * Step 4 - Write a test that verifies that the cart button text has opacity 0.7
-   *          css applied, and contains the proper price of the added pizza.
+   * Step 4 - Write a test that verifies that when a pizza is added to the cart,
+   *          the cart button text has opacity 1 css applied, and contains the
+   *          proper price of the added pizza.
    * Step 5 - Write a test that verifies that when multiple pizzas are added to the
    *          cart, the price displays the sum.
    *
@@ -32,14 +33,9 @@ describe(`Exercise 3 - The Cart button`, () => {
    */
 
   beforeEach(() => {
-    // We intercept the list request
     cy.intercept('GET', '/api/pizza/list', { fixture: 'pizzas.json' }).as('pizzas');
-    // We intercept the pizza image requests and we stub with one image, so the image will be visible!
-    // intercept can intercept image requests as well, and you can provide an image as a fixture
     cy.intercept('GET', '/api/pizza/images/*.jpg', { fixture: 'pizza.jpg' }).as('pizzaImage');
-    // we start the tests
     cy.visit('/pizza');
-    // we wait for the response to arrive before executing the tests in this test file
     cy.wait('@pizzas');
   });
 
@@ -51,7 +47,6 @@ describe(`Exercise 3 - The Cart button`, () => {
   });
 
   it(`the cart button should always be visible`, () => {
-    // we also test if the price gets converted to dollar amounts
     cy.get(`[data-test-id="cart button"]`)
       .should('be.visible')
       .and('have.css', 'opacity', '0.7')
@@ -59,7 +54,6 @@ describe(`Exercise 3 - The Cart button`, () => {
   });
 
   it(`pizzas can be added to the cart which updates the css`, () => {
-    // we get the whole pizza row which has the data-test-id
     cy.get(`[data-test-id="Margherita"]`)
       .should('be.visible')
       .find('[data-test-id="add to cart button"]')
@@ -73,7 +67,6 @@ describe(`Exercise 3 - The Cart button`, () => {
   });
 
   it(`adding multiple pizzas sums up the order price`, () => {
-    // we get the whole pizza row which has the data-test-id
     cy.get(`[data-test-id="Margherita"]`)
       .should('be.visible')
       .find('[data-test-id="add to cart button"]')
